@@ -1,0 +1,66 @@
+﻿<Window x:Class="EmployeesFromCompanies.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeesFromCompanies"
+        mc:Ignorable="d"
+        Title="List of employees" Icon="images/edit.png" Height="472" Width="924" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontFamily="Georgia" FontSize="20">
+    <Grid Background="#FFDBEEFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="321*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <ListBox x:Name="employeesList" ItemsSource="{Binding}" FontFamily="Georgia" FontSize="18" Background="White" Margin="6,10,217,10" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding FullName}" FontSize="16" FontFamily="Georgia" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Address}" FontSize="13" FontFamily="Georgia" />
+                        <TextBlock Text="{Binding PhoneNumber}" FontSize="13" FontFamily="Georgia" />
+                        <TextBlock Text="{Binding Position}" FontSize="13" FontFamily="Georgia" />
+                        <TextBlock Text="{Binding WorkPlace}" FontSize="13" FontFamily="Georgia" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <DockPanel Grid.Row="0" Background="#FFA7D5FF" Margin="0,0,0,1">
+            <Border BorderBrush="#FF818181"  BorderThickness="1" Width="918">
+                <StackPanel Orientation="Horizontal" Margin="0,0,-2,0">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Width="903">
+                        <Label Content="Select the company:" Margin="7,7,7,10" FontFamily="Georgia" FontSize="20" Width="190"/>
+                        <ComboBox x:Name="Companies" Margin="7" Width="256" BorderBrush="White" FontFamily="Georgia" FontSize="20" >
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                    <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                        </ComboBox>
+                        <Button Content="Load employees" CommandParameter="{Binding ElementName=employeesList, Path=SelectedItem}" Command="{Binding LoadCommand}" Margin="7" x:Name="Load" Width="210" FontFamily="Georgia" FontSize="20" Background="White" Click="Load_Click"  />
+                        <Button Content="Load companies" Command="{Binding LoadCompaniesCommand}" Margin="7,7,7,10" Name="LoadCompanies" Width="185" FontFamily="Georgia" FontSize="20" Background="White" Click="LoadCompanies_Click"  />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="25" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" Background="#FFA7D5FF">
+            <Border BorderBrush="#FF818181"  BorderThickness="1" Width="918">
+                <StackPanel Orientation="Horizontal" Margin="0,0,-2,0">
+                    <Button Name="Add" Command="{Binding AddCommand}" HorizontalAlignment="Center" Content="Add" Margin="7" Click="Add_Click" Width="165" FontFamily="Georgia" FontSize="20" Background="White" />
+                    <Button Name="Edit" CommandParameter="{Binding ElementName=employeesList, Path=SelectedItem}" Command="{Binding EditCommand}" HorizontalAlignment="Right" Content="Edit" Margin="7" Click="Edit_Click" Width="160" FontFamily="Georgia" FontSize="20" Background="White" />
+                    <Button Name="Delete" CommandParameter="{Binding ElementName=employeesList, Path=SelectedItem}" Command="{Binding DeleteCommand}" Content="Delete" Margin="7" HorizontalAlignment="Left" Click="Delete_Click" Width="160" FontFamily="Georgia" FontSize="20" Background="White" />
+                    <Button x:Name="ClearCompanies" Command="{Binding ClearCompaniesCommand}" HorizontalAlignment="Right" Content="Clear list with companies" Margin="7" Width="244" Background="White" Click="ClearCompanies_Click" />
+                    <Button Command="{Binding ExitCommand}" Name="Exit" Content="Exit" Margin="7" Width="99" Background="#FF3373E2" Click="Exit_Click" Foreground="White"/>
+                </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="25" />
+
+        </DockPanel>
+        <ListView Name="listComanies" HorizontalAlignment="Left" Height="312" Margin="706,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="186">
+
+        </ListView>
+
+    </Grid>
+</Window>
